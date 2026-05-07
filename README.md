@@ -1,575 +1,365 @@
 <div id="top"></div>
 
-<h1 align="center">Node.js Express REST API MySQL JS Example</h1>
+<h1 align="center">Projet DevOps - Node.js Express REST API MySQL</h1>
 
 <div align="center">
   <p align="center">
-    This REST API example is a basic backend application to test basic API functions with MySQL database.
+    Projet complet de déploiement DevOps utilisant Docker, Kubernetes (K3s) et une pipeline CI/CD avec GitHub Actions.
   </p>
-  <a href="https://www.postman.com/workspace/node-js-express-mysql-rest-api-example/overview">View Postman Files</a>
 </div>
 
-<!-- TABLE OF CONTENTS -->
+---
+
+# 📚 Table des matières
+
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Afficher la table des matières</summary>
+
   <ol>
     <li>
-      <a href="#about-the-application">About The Application</a>
+      <a href="#a-propos-du-projet">À propos du projet</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#technologies-utilisees">Technologies utilisées</a></li>
       </ul>
     </li>
-    <li><a href="#how-to-install">How To Install</a></li>
-    <li><a href="#available-scripts">Available Scripts</a></li>
-    <li><a href="#postman">Postman</a></li>
+
+   <li><a href="#containerisation-docker">Containerisation Docker</a></li>
+
+   <li><a href="#deploiement-kubernetes">Déploiement Kubernetes</a></li>
+
+   <li><a href="#persistance-des-donnees">Persistance des données</a></li>
+
+   <li><a href="#autoscaling-hpa">Autoscaling - HPA</a></li>
+
+   <li><a href="#pipeline-cicd">Pipeline CI/CD</a></li>
+
+   <li><a href="#runner-self-hosted">Runner Self-Hosted</a></li>
+
+   <li><a href="#recuperation-automatique-en-cas-de-crash">Récupération automatique en cas de crash</a></li>
+
+   <li><a href="#structure-du-projet">Structure du projet</a></li>
+
+   <li><a href="#commandes-utiles">Commandes utiles</a></li>
+
+   <li><a href="#objectifs-realises">Objectifs réalisés</a></li>
+
   </ol>
 </details>
 
-<!-- ABOUT THE APPLICATION -->
+---
 
-## About The Application
+# 📌 À propos du projet
 
-This REST API example is a basic backend application to test basic API functions with MySQL database.
+Ce projet consiste à déployer une API REST Node.js connectée à une base de données MySQL en utilisant les outils DevOps modernes.
 
-It is built with Node.js and Express Framework with Javascript. In addition, the applications database is MySQL, with the use of mysql2 library.
+L’objectif principal était de mettre en pratique :
 
-In the applicaiton we can manage user data, such as create/edit/delete a user. In addition, we can get all the users in the database.
+- la containerisation avec Docker ;
+- l’orchestration avec Kubernetes ;
+- la gestion de la persistance ;
+- l’autoscaling ;
+- l’automatisation du déploiement avec CI/CD ;
+- l’utilisation de GitHub Actions ;
+- la configuration d’un runner self-hosted.
 
-The point of this backend application is to test CRUD operations with MySQL database.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Built With
-
--   [Node.js](https://nodejs.org/en/)
--   [Express](https://expressjs.com/)
--   [Cors](https://www.npmjs.com/package/cors)
--   [MySQL2](https://www.npmjs.com/package/mysql2)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- INSTALLATION INSTRUCTIONS -->
-
-## How To Install
-
-**Git clone**
-
-```
-git clone https://github.com/almoggutin/Node-Express-REST-API-MySQL-JS-Example
-```
-
-**Instructions**
-
--   After cloning the the repository run `npm i` in order to install all the dependencies.
--   Create an env file in the root of the project named .env and fill in the follwing variables: PORT, DB_HOST, DB_PORT, DB_USERNAME, DB_USERNAME_PASSWORD, DB_NAME.
--   In the sql directory, there are sql files that you will need to execute in order to initialize the database.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!--  AVAILABLE SCRIPTS -->
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the production mode.\
-However, this script is only meant to be run when deploying the application. The application is built, where you need to setup the env variables on the machine that you will be hosting it on or on a web hosting service, unlike in development mode.
-
-### `npm run dev`
-
-Runs the app in the development mode.\
-Open localhost on the port you decided on in the env variables to view it in the browser.
-
-The API will reload if you make edits with the use of nodemon.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- POSTMAN -->
-
-## Postman
-
-If you would like to run the files locally on your machine in the postman desktop application, included in the repository, in the `postman` directory all the files so you can import them. In addition you will have to configure env variables in postman so that you will be able to test properly everything.
-
-<div align="center">
-  <img src="./assets/postman/postman-global-env-variables.png" alt="Postman global env variables."/>
-  <img src="./assets/postman/postman-jobs-env-variables.png" alt="Postman admin env variables."/>
-</div>
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
- TP DevOps - Déploiement complet d’une application Node.js avec Docker, Kubernetes et CI/CD
-
- 1. Objectif du TP
-
-Ce TP a pour objectif de mettre en place une chaîne DevOps complète autour d’une application Node.js utilisant une base de données MySQL.
-
-L’objectif général est de partir d’un code source existant, de le conteneuriser avec Docker, de le déployer sur Kubernetes, puis de préparer une pipeline CI/CD avec GitHub Actions.
-
-La chaîne mise en place est la suivante :
-
-Code source → Docker → Docker Hub → Kubernetes → CI/CD
+L’application permet d’effectuer des opérations CRUD (Create, Read, Update, Delete) sur des utilisateurs stockés dans une base de données MySQL.
 
 ---
 
-## 2. Environnement de travail
+# 🛠 Technologies utilisées
 
-Le TP a été réalisé dans une machine virtuelle Linux.
+- Node.js
+- Express.js
+- MySQL
+- Docker
+- Docker Hub
+- Kubernetes
+- K3s
+- GitHub Actions
+- YAML
+- Linux (Ubuntu / Debian)
 
-Cette machine virtuelle sert d’environnement principal pour :
-- installer Docker ;
-- installer Kubernetes via k3s ;
-- construire les images Docker ;
-- déployer les manifests Kubernetes ;
-- exécuter le runner self-hosted GitHub Actions.
-
-L’utilisation d’une VM Linux permet de travailler dans un environnement proche d’un serveur réel.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
 ---
 
-## 3. Installation et vérification de Docker
+# 🐳 Containerisation Docker
 
-Docker a été installé afin de permettre la création et l’exécution de conteneurs.
+L’application a été containerisée avec Docker.
 
-Docker permet d’emballer une application avec ses dépendances dans une image portable. Cette image peut ensuite être lancée sous forme de conteneur.
+Un fichier `Dockerfile` a été créé afin de :
 
-La vérification de Docker a été faite avec :
-`bash
-docker run hello-world
+- définir l’environnement Node.js ;
+- installer les dépendances ;
+- copier le code source ;
+- exposer le port de l’API ;
+- lancer automatiquement le serveur Node.js.
 
-Cette commande permet de vérifier que Docker fonctionne correctement. Docker télécharge une image de test depuis Docker Hub, crée un conteneur, puis affiche un message de confirmation.
+Exemple de commandes utilisées :
 
-Une erreur de permission a été rencontrée au départ. Elle venait du fait que l’utilisateur courant n’avait pas les droits d’utiliser Docker. Le problème a été corrigé en ajoutant l’utilisateur au groupe Docker.
+```bash
+docker build -t nom-image .
+docker push nom-image
+```
 
-4. Récupération du code source
+L’image Docker générée est ensuite utilisée par Kubernetes pour créer les conteneurs.
 
-Le code source de l’application a été récupéré depuis GitHub.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-L’application utilisée est une API Node.js / Express connectée à une base MySQL.
+---
 
-La commande utilisée est :
+# ☸ Déploiement Kubernetes
 
-git clone <url-du-repo>
+L’application a été déployée sur un cluster Kubernetes K3s.
 
-Git permet de récupérer le code source, mais aussi l’historique du projet. Il est utilisé car c’est l’outil standard de gestion de version dans les projets DevOps.
+Plusieurs fichiers YAML (manifests Kubernetes) ont été créés dans le dossier `k8s/`.
 
-Après récupération du projet, la structure a été analysée afin de comprendre comment l’application fonctionne.
+---
 
-Les fichiers importants sont notamment :
+## 🔹 Déploiement de l’API
 
-package.json
-src/
-config/
-sql/
+Le Deployment de l’API permet de :
 
-Le fichier package.json est important car il indique les dépendances du projet ainsi que la commande de démarrage de l’application.
+- créer les pods de l’API ;
+- gérer automatiquement les replicas ;
+- recréer les pods en cas de crash ;
+- connecter l’API à MySQL ;
+- lancer les conteneurs à partir de l’image Docker.
 
-Le script de démarrage trouvé est :
+Fichier :
 
-"start": "cross-env NODE_ENV=production node src/index.js"
+```text
+k8s/api-deployment.yaml
+```
 
-Cela signifie que l’application démarre avec :
+---
 
-npm start
+## 🔹 Déploiement MySQL
 
-Cette étape est essentielle avant de dockeriser une application, car Docker doit savoir quelle commande exécuter lorsque le conteneur démarre.
+Le Deployment MySQL permet de :
 
-5. Création du Dockerfile
+- lancer le conteneur MySQL ;
+- stocker les données ;
+- permettre la communication avec l’API via un Service Kubernetes.
 
-Un fichier Dockerfile a été créé afin de construire l’image Docker de l’application.
+Fichier :
 
-Le Dockerfile décrit les étapes nécessaires pour créer une image exécutable de l’application.
+```text
+k8s/mysql-deployment.yaml
+```
 
-Exemple de Dockerfile utilisé :
+---
 
-FROM node:18-alpine
+## 🔹 Services Kubernetes
 
-WORKDIR /app
+Les Services Kubernetes ont été utilisés afin de :
 
-COPY package*.json ./
+- fournir une adresse réseau stable ;
+- permettre la communication entre les pods ;
+- exposer l’API à l’intérieur du cluster.
 
-RUN npm install
+Les Services résolvent le problème des IP dynamiques des pods.
 
-COPY . .
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-EXPOSE 3000
+---
 
-CMD ["npm", "start"]
-Explication du Dockerfile
-FROM node:18-alpine
+# 💾 Persistance des données
 
-Cette ligne indique que l’image de base est une image Node.js.
-La version alpine est utilisée car elle est plus légère, ce qui permet d’optimiser la taille finale de l’image.
+La persistance a été configurée avec un PersistentVolumeClaim (PVC).
 
-WORKDIR /app
+Sans persistance :
 
-Cette ligne définit le dossier de travail dans le conteneur.
+- toutes les données MySQL seraient perdues lors d’un crash du pod.
 
-COPY package*.json ./
+Avec le PVC :
 
-Cette ligne copie les fichiers package.json et package-lock.json dans l’image. Ces fichiers sont nécessaires pour installer les dépendances.
+- les données restent disponibles même après la recréation du pod.
 
-RUN npm install
+Cela garantit la conservation des données de la base MySQL.
 
-Cette ligne installe les dépendances Node.js nécessaires au fonctionnement de l’application.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-COPY . .
+---
 
-Cette ligne copie le reste du code source dans l’image.
+# 📈 Autoscaling - HPA
 
-EXPOSE 3000
+Un Horizontal Pod Autoscaler (HPA) a été configuré pour l’API.
 
-Cette ligne indique que l’application utilise le port 3000.
+Le HPA permet :
 
-CMD ["npm", "start"]
+- d’ajouter automatiquement des pods lorsque la charge CPU augmente ;
+- de réduire automatiquement le nombre de pods lorsque la charge diminue.
 
-Cette ligne définit la commande exécutée au démarrage du conteneur.
+Cela améliore :
 
-6. Optimisation avec .dockerignore
+- la scalabilité ;
+- les performances ;
+- la disponibilité de l’application.
 
-Un fichier .dockerignore a été ajouté afin d’éviter de copier des fichiers inutiles dans l’image Docker.
+Fichier :
 
-Exemple :
+```text
+k8s/api-hpa.yaml
+```
 
-node_modules
-.git
-.gitignore
-README.md
-.env
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-Ce fichier permet :
+---
 
-de réduire la taille de l’image ;
-d’accélérer le build ;
-d’éviter de copier des fichiers sensibles ;
-de garder une image plus propre.
+# 🔄 Pipeline CI/CD
 
-Sans .dockerignore, Docker pourrait copier des fichiers inutiles comme .git, node_modules ou des fichiers d’environnement.
+Une pipeline CI/CD a été mise en place avec GitHub Actions.
 
-7. Build de l’image Docker
+Le workflow se lance automatiquement lorsqu’une modification est envoyée sur la branche `main`.
 
-L’image Docker a été construite avec la commande :
+La pipeline permet :
 
-docker build -t mon-api .
+- de builder automatiquement l’image Docker ;
+- de déployer automatiquement les manifests Kubernetes ;
+- d’automatiser le processus de déploiement ;
+- de simplifier les mises à jour de l’infrastructure.
 
-Le point . à la fin indique à Docker d’utiliser le dossier courant comme contexte de build.
+Fichier du workflow :
 
-Cette commande lit le Dockerfile, installe les dépendances, copie le code source, puis crée une image Docker appelée mon-api.
-
-Une fois le build terminé, l’image est visible avec :
-
-docker images
-8. Publication de l’image sur Docker Hub
-
-Après avoir construit l’image, celle-ci a été poussée sur Docker Hub.
-
-Docker Hub est un registre d’images Docker. Il permet de stocker et partager les images.
-
-Les étapes réalisées sont :
-
-docker login
-docker tag mon-api <dockerhub-username>/mon-api:latest
-docker push <dockerhub-username>/mon-api:latest
-
-L’image publiée sur Docker Hub sera ensuite utilisée par Kubernetes pour déployer l’API.
-
-9. Installation et utilisation de k3s
-
-k3s a été utilisé comme distribution légère de Kubernetes.
-
-Kubernetes sert à orchestrer les conteneurs. Il permet de déployer, redémarrer, scaler et gérer les applications conteneurisées.
-
-Dans ce TP, la VM Linux joue le rôle de cluster Kubernetes local.
-
-Un cluster Kubernetes est un ensemble de machines qui exécutent des applications conteneurisées. Dans ce cas, le cluster contient un seul nœud : la VM.
-
-10. Déploiement de MySQL sur Kubernetes
-
-La base de données MySQL a été déployée dans Kubernetes à l’aide d’un manifest YAML.
-
-Un manifest YAML permet de décrire l’état souhaité dans Kubernetes.
-
-Pour MySQL, plusieurs ressources ont été créées :
-
-un Secret ;
-un PersistentVolumeClaim ;
-un Deployment ;
-un Service.
-Secret
-
-Le Secret permet de stocker des informations sensibles comme le mot de passe de la base de données.
-
-Cela évite d’écrire directement les mots de passe en clair dans les fichiers de configuration.
-
-PersistentVolumeClaim
-
-Le PersistentVolumeClaim permet de demander un stockage persistant à Kubernetes.
-
-La persistance signifie que les données doivent rester disponibles même si le pod MySQL redémarre.
-
-Sans persistance, les données de la base pourraient être perdues à chaque redémarrage du pod.
-
-Deployment MySQL
-
-Le Deployment MySQL permet de lancer un pod contenant le conteneur MySQL.
-
-Un Deployment permet à Kubernetes de gérer le cycle de vie des pods :
-
-création ;
-redémarrage ;
-remplacement en cas de crash.
-Service MySQL
-
-Le Service MySQL permet à l’API de contacter la base de données avec un nom stable.
-
-Le service s’appelle :
-
-mysql
-
-L’API peut donc utiliser :
-
-DB_HOST=mysql
-
-Le type utilisé est :
-
-type: ClusterIP
-
-Cela signifie que MySQL est accessible uniquement à l’intérieur du cluster.
-
-11. Déploiement de l’API sur Kubernetes
-
-L’API a également été déployée sur Kubernetes à l’aide d’un manifest YAML.
-
-Le fichier contient :
-
-un Deployment pour lancer l’API ;
-un Service pour rendre l’API joignable à l’intérieur du cluster.
-
-Le Deployment utilise l’image Docker publiée sur Docker Hub.
-
-Exemple :
-
-image: <dockerhub-username>/mon-api:latest
-
-Les variables d’environnement permettent à l’API de se connecter à MySQL :
-
-- name: DB_HOST
-  value: mysql
-- name: DB_PORT
-  value: "3306"
-- name: DB_USERNAME
-  value: root
-- name: DB_USERNAME_PASSWORD
-  value: root
-- name: DB_NAME
-  value: test
-
-L’API ne contacte pas directement le pod MySQL.
-Elle contacte le Service Kubernetes mysql, qui redirige ensuite vers le bon pod MySQL.
-
-12. Communication entre l’API et MySQL
-
-La communication entre l’API et MySQL se fait grâce au système DNS interne de Kubernetes.
-
-Lorsqu’un Service est créé avec le nom mysql, Kubernetes crée automatiquement un nom DNS interne.
-
-L’API peut donc joindre la base de données avec :
-
-mysql:3306
-
-Le fonctionnement est le suivant :
-
-Pod API → Service mysql → Pod MySQL
-
-Le Service permet de ne pas dépendre de l’adresse IP du pod MySQL, car cette adresse peut changer si le pod redémarre.
-
-13. Mise en place du HPA
-
-L’énoncé demandait d’avoir au moins 1 pod en permanence et jusqu’à 3 pods en cas de pic de charge.
-
-Pour cela, un HorizontalPodAutoscaler a été créé.
-
-Le HPA permet à Kubernetes d’augmenter ou de réduire automatiquement le nombre de pods en fonction de la charge.
-
-Exemple :
-
-charge normale → 1 pod
-charge élevée → jusqu’à 3 pods
-
-Le HPA cible le Deployment de l’API.
-
-Il est configuré avec :
-
-minimum : 1 pod ;
-maximum : 3 pods ;
-métrique : CPU.
-
-Le HPA utilise les métriques fournies par Kubernetes pour décider s’il doit créer plus de pods.
-
-14. Ressources CPU et mémoire
-
-Pour que le HPA puisse fonctionner correctement, des ressources ont été définies dans le Deployment de l’API.
-
-Exemple :
-
-resources:
-  requests:
-    cpu: "100m"
-    memory: "128Mi"
-  limits:
-    cpu: "500m"
-    memory: "256Mi"
-
-Les requests indiquent les ressources minimales demandées par le pod.
-
-Les limits indiquent les ressources maximales que le pod peut utiliser.
-
-Cela permet à Kubernetes de mieux gérer les ressources disponibles et de prendre des décisions de scaling.
-
-15. Vérifications Kubernetes
-
-Plusieurs commandes ont été utilisées pour vérifier l’état du déploiement :
-
-sudo k3s kubectl get pods
-
-Permet de voir les pods en cours d’exécution.
-
-sudo k3s kubectl get svc
-
-Permet de voir les services Kubernetes.
-
-sudo k3s kubectl get pvc
-
-Permet de vérifier que le volume persistant est bien créé.
-
-sudo k3s kubectl get hpa
-
-Permet de vérifier que l’autoscaling est bien configuré.
-
-sudo k3s kubectl top pods
-
-Permet de voir la consommation CPU et mémoire des pods.
-
-16. Mise en place de GitHub
-
-Le projet a été envoyé sur un dépôt GitHub personnel afin de pouvoir mettre en place la pipeline CI/CD.
-
-Les commandes Git utilisées sont :
-
-git add .
-git commit -m "Initial commit - DevOps project"
-git push
-
-GitHub n’accepte plus l’authentification par mot de passe classique.
-Un Personal Access Token GitHub a donc été utilisé pour pousser le code.
-
-Le token doit avoir la permission repo afin d’autoriser l’écriture dans le dépôt.
-
-17. Runner self-hosted GitHub Actions
-
-Un runner self-hosted a été installé sur la VM.
-
-Un runner est une machine qui exécute les jobs GitHub Actions.
-
-Dans ce TP, le runner self-hosted est la VM Linux.
-Il permet d’exécuter les commandes de build et de déploiement directement dans l’environnement où Docker et Kubernetes sont installés.
-
-Le runner a été téléchargé depuis GitHub, extrait, configuré puis lancé avec :
-
-./run.sh
-
-Lorsque le runner affiche :
-
-Listening for Jobs
-
-cela signifie qu’il est connecté à GitHub et prêt à exécuter une pipeline.
-
-18. Début de la pipeline CI/CD
-
-Un fichier GitHub Actions doit être créé dans :
-
+```text
 .github/workflows/ci-cd.yml
+```
 
-Ce fichier représente la pipeline CI/CD.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-La pipeline a pour objectif de s’exécuter automatiquement à chaque modification de la branche main.
+---
 
-Elle devra :
+# 🖥 Runner Self-Hosted
 
-récupérer le code ;
-se connecter à Docker Hub ;
-builder l’image Docker ;
-pousser l’image sur Docker Hub ;
-déployer les manifests Kubernetes.
+Un runner GitHub Actions self-hosted a été configuré localement sur la machine virtuelle Linux.
 
-Les secrets GitHub Actions nécessaires sont :
+Le runner permet à GitHub Actions d’exécuter les tâches directement sur l’infrastructure locale.
 
-DOCKER_USERNAME ;
-DOCKER_PASSWORD.
+Étapes réalisées :
 
-Ces secrets permettent à la pipeline de se connecter à Docker Hub sans exposer les identifiants dans le code.
+- téléchargement du runner ;
+- configuration du runner ;
+- connexion du runner au dépôt GitHub ;
+- lancement du service runner.
 
-19. Problèmes rencontrés
+Le runner écoute ensuite automatiquement les jobs GitHub Actions.
 
-Plusieurs problèmes ont été rencontrés pendant la réalisation du TP.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-Problème de permission Docker
+---
 
-Au départ, Docker refusait l’exécution des commandes sans sudo.
-Le problème venait du fait que l’utilisateur n’était pas dans le groupe Docker.
+# 🔥 Récupération automatique en cas de crash
 
-Problèmes DNS
+Les Deployments Kubernetes assurent la récupération automatique des pods.
 
-Lors du build Docker, Docker n’arrivait pas à résoudre l’adresse de Docker Hub.
-Cela venait d’un problème DNS dans la VM.
+En cas de crash :
 
-Erreurs YAML
+- Kubernetes détecte l’arrêt du pod ;
+- le ReplicaSet recrée automatiquement un nouveau pod.
 
-Plusieurs erreurs Kubernetes ont été rencontrées à cause de l’indentation YAML.
+Cela garantit la haute disponibilité de l’application.
 
-YAML est très strict : une mauvaise indentation ou une mauvaise casse peut empêcher Kubernetes de lire le fichier.
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-Exemple d’erreur corrigée :
+---
 
-containerport
+# 📂 Structure du projet
 
-a été corrigé en :
+```text
+.
+├── Dockerfile
+├── README.md
+├── .github
+│   └── workflows
+│       └── ci-cd.yml
+├── k8s
+│   ├── api-deployment.yaml
+│   ├── mysql-deployment.yaml
+│   └── api-hpa.yaml
+├── sql
+├── src
+└── postman
+```
 
-containerPort
-Problèmes GitHub
+<p align="right">(<a href="#top">retour en haut</a>)</p>
 
-GitHub refusait le push car l’authentification par mot de passe n’est plus supportée.
-Un token GitHub a été utilisé à la place du mot de passe.
+---
 
-20. Conclusion
+# 💻 Commandes utiles
 
-Ce TP a permis de mettre en pratique une chaîne DevOps complète.
+## Déployer les manifests Kubernetes
 
-Les principales compétences travaillées sont :
+```bash
+sudo k3s kubectl apply -f k8s/
+```
 
-utilisation de Linux ;
-conteneurisation avec Docker ;
-publication d’image sur Docker Hub ;
-déploiement Kubernetes avec k3s ;
-gestion de services internes ;
-persistance des données avec PVC ;
-autoscaling avec HPA ;
-gestion de version avec Git ;
-préparation d’une pipeline CI/CD avec GitHub Actions ;
-installation d’un runner self-hosted.
+---
 
-La chaîne DevOps obtenue est la suivante :
+## Voir les pods
 
-Code source
-→ Dockerfile
-→ Image Docker
-→ Docker Hub
-→ Kubernetes
-→ MySQL persistant
-→ HPA
-→ GitHub Actions
-→ Runner self-hosted
+```bash
+sudo k3s kubectl get pods
+```
 
-Ce TP montre comment automatiser progressivement le cycle de vie d’une application, depuis son code source jusqu’à son déploiement sur une infrastructure Kubernetes.
+---
+
+## Voir les services
+
+```bash
+sudo k3s kubectl get svc
+```
+
+---
+
+## Voir le HPA
+
+```bash
+sudo k3s kubectl get hpa
+```
+
+---
+
+## Construire l’image Docker
+
+```bash
+docker build -t nom-image .
+```
+
+---
+
+## Push de l’image Docker
+
+```bash
+docker push nom-image
+```
+
+<p align="right">(<a href="#top">retour en haut</a>)</p>
+
+---
+
+# ✅ Objectifs réalisés
+
+✅ Containerisation Docker
+
+✅ Déploiement Kubernetes
+
+✅ Gestion de la persistance
+
+✅ Autoscaling avec HPA
+
+✅ Pipeline CI/CD GitHub Actions
+
+✅ Configuration d’un runner self-hosted
+
+✅ Automatisation de l’infrastructure
+
+✅ Recréation automatique des pods en cas de crash
+
+<p align="right">(<a href="#top">retour en haut</a>)</p>
+
+---
+
+# 👨‍💻 Auteur
+
+Projet DevOps réalisé dans le cadre de l’apprentissage de l’automatisation d’infrastructure, de la containerisation et de l’orchestration Kubernetes.
